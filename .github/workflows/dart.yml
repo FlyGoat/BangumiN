@@ -1,0 +1,28 @@
+name: Dart
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Install dependencies
+        working-directory: ./app
+        run: dart pub get
+
+      - name: Analyze project source
+        working-directory: ./app
+        run: dart analyze
+
+      - name: Run tests
+        working-directory: ./app
+        run: dart test
